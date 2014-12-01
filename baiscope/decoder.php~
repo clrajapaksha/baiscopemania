@@ -1,0 +1,42 @@
+<?php
+
+ini_set('error_log', 'sms-app-error.log');
+#require_once 'lib/Log.php';
+require_once 'lib/SMSReceiver.php';
+require_once 'lib/SMSSender.php';
+
+define('SERVER_URL', 'http://localhost:7000/sms/send');
+define('APP_ID', 'APP_000001');
+define('APP_PASSWORD', 'password');
+
+
+function movieResponseDecode($param,$addrss) {
+    $responseMsg = "unsuccessful";
+    $logger = new Logger();  
+    if ($param != null) {
+        try {
+
+            $sender = new SMSSender(SERVER_URL, APP_ID, APP_PASSWORD);
+            $sender->sms($param, $addrss);
+            $responseMsg="successful";
+            
+        } catch (Exception $e) {
+            $logger->WriteLog($e->getErrorCode() . ' ' . $e->getErrorMessage());
+        }
+    }
+
+    return $responseMsg;
+}
+
+function tvShowsResponseDecode($param) {
+    $response = "sucessful";
+
+    if ($param != null) {
+        
+    }
+
+    return $response;
+}
+
+?>
+
